@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DivisiController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\NilaiController;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', [AuthController::class, 'login']);
+Route::get('nilaiST', [NilaiController::class, 'nilaiST']);
+Route::get('nilaiRT', [NilaiController::class, 'nilaiRT']);
+
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('divisions', [DivisiController::class, 'divisi']);
