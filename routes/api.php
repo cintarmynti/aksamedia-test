@@ -19,10 +19,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', [AuthController::class, 'login']);
-Route::get('divisions', [DivisiController::class, 'divisi']);
-Route::get('employees', [EmployeeController::class, 'employee']);
-
 
 Route::middleware('auth:sanctum')->group(function (){
+    Route::get('divisions', [DivisiController::class, 'divisi']);
+    Route::get('employees', [EmployeeController::class, 'employee']);
+    Route::post('employees', [EmployeeController::class, 'create']);
+    Route::put('employees/{id}', [EmployeeController::class, 'update']);
+    Route::delete('employees/{id}', [EmployeeController::class, 'destroy']);
+    Route::post('logout', [AuthController::class, 'logout']);
 
 });

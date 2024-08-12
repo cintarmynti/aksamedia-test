@@ -10,23 +10,25 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+
     // Tugas 1
     public function login(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'password' => 'required'
+            'name' => 'required',
+            'password' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Invalid input',
-                'data' => null
+                'errors' => $validator->errors(), // Optionally include validation errors
             ], 422);
         }
 
         $admin = Admins::where('name', $request->name)->first();
 
+        // dd(!$admin);
         if(!$admin || !Hash::check($request->password, $admin->password)){
             return response()->json([
                 'status' => 'error',
@@ -50,6 +52,19 @@ class AuthController extends Controller
                     'email' => $admin->email,
                 ],
             ]
+        ], 200);
+    }
+
+    public function logout(Request $request){
+        $token = $request->user()->currentAccessToken();
+
+        if ($token) {
+            $token->delete();
+        }
+
+        return response()->json([
+            'status' => 'Success',
+            'message' => 'Successfully logged out',
         ], 200);
     }
 }
