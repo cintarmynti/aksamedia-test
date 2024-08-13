@@ -131,7 +131,7 @@ class EmployeeController extends Controller
         // dd($request->all());
         try {
             $validator = Validator::make($request->all(), [
-                'image' => 'required|file|image',
+                'image' => 'file|image',
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string',
                 'division' => 'required|string',
